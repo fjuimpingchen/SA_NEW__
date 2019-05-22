@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Responsive Animated Sidebar Menu</title>
+  <meta charset="UTF-8">
+  <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <script>document.getElementsByTagName("html")[0].className += " js";</script>
+  <link rel="stylesheet" href="assets/css/style.css">
+<script>
+  function openSlideMenu(){
+    document.getElementById('menu').style.width = '250px';
+    document.getElementById('content').style.marginLeft = '250px';
+  }
+  function closeSlideMenu(){
+    document.getElementById('menu').style.width = '0';
+    document.getElementById('content').style.marginLeft = '0';
+  }
+</script>
+
+<!-- FontAwesome_CDN -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+</head>
+<body>
+
+<!-- 上面導覽列 -->
+  <header class="cd-main-header js-cd-main-header">
+    <div class="cd-logo-wrapper">
+      <a href="#0" class="cd-logo"></a>
+    </div>
+
+    <!-- <div class="cd-search js-cd-search">
+      <form>
+        <input class="reset" type="search" placeholder="Search...">
+      </form>
+    </div> -->
+
+    <!-- <button class="reset cd-nav-trigger js-cd-nav-trigger" aria-label="Toggle menu"><span></span></button> -->
+
+    <ul class="cd-nav__list js-cd-nav__list">
+      <!-- <li class="cd-nav__item"><a href="#0">Tour</a></li> -->
+      <!-- <li class="cd-nav__item"><a href="#0">Support</a></li> -->
+      <li class="cd-nav__item cd-nav__item--has-children cd-nav__item--account js-cd-item--has-children">
+        <a href="#0">
+          <img src="assets/img/cd-avatar.svg" alt="avatar">
+          <span>王小美</span>
+        </a>
+
+        <ul class="cd-nav__sub-list">
+          <li class="cd-nav__sub-item"><a href="#0">編輯帳戶</a></li>
+          <li class="cd-nav__sub-item"><a href="#0">登出</a></li>
+          <!-- <li class="cd-nav__sub-item"><a href="#0">Logout</a></li> -->
+        </ul>
+      </li>
+    </ul>
+  </header> <!-- .cd-main-header -->
+
+
+
+
+<!-- 左邊導覽列 -->
+  <div id="content">
+
+    <span class="slide">
+      <a href="#" onclick="openSlideMenu()">
+        <i class="fas fa-bars"></i>
+      </a>
+    </span>
+
+    <div id="menu" class="nav">
+      <a href="#" class="close" onclick="closeSlideMenu()">
+        <i class="fas fa-times"></i>
+      </a>
+      <a href="#">首頁</a>
+      <a href="#">About</a>
+      <a href="#">Services</a>
+      <a href="#">Portfolio</a>
+      <a href="#">Contact</a>
+    </div>
+
+    <table id="miyazaki" style="width:1000px">
+  <caption>修課通過一覽表</caption>
+  <thead>
+  <tr>
+    <th>課程名稱
+    <th>授課老師
+    <th>學年
+    <th>學期
+    <th>評論
+    <th>修改
+    <th>刪除
+  <tbody>
+  <tr>
+    <td>系統分析與設計
+    <td>XXX
+    <td>107
+    <td>2
+      <td><img src="/Users/huangpingchen/Desktop/SA New/edit.svg"
+          style="width:30px;height:30px;display:block; margin:auto;cursor: default;">
+      <td><img src="/Users/huangpingchen/Desktop/SA New/edit2.svg"
+          style="width:30px;height:30px;display:block; margin:auto;cursor:pointer;">
+      <td><img src="/Users/huangpingchen/Desktop/SA New/trash.svg"
+              style="width:30px;height:30px;display:block; margin:auto;cursor:pointer;">
+  <tr>
+    <td>系統分析與設計
+    <td>XXX
+    <td>107
+    <td>2
+    <td><img src="/Users/huangpingchen/Desktop/SA New/edit.svg"
+        style="width:30px;height:30px;display:block; margin:auto;cursor:pointer; ">
+    <td><img src="/Users/huangpingchen/Desktop/SA New/edit2.svg"
+        style="width:30px;height:30px;display:block; margin:auto;cursor: default; ">
+    <td><img src="/Users/huangpingchen/Desktop/SA New/trash.svg"
+            style="width:30px;height:30px;display:block; margin:auto;cursor: default; ">
+  <tr>
+    <td style=align='center' valign="middle">系統分析與設計
+    <td>XXX
+    <td>107
+    <td>2
+      <td><img src="/Users/huangpingchen/Desktop/SA New/edit.svg"
+          style="width:30px;height:30px;display:block; margin:auto;cursor:pointer;">
+      <td><img src="/Users/huangpingchen/Desktop/SA New/edit2.svg"
+          style="width:30px;height:30px;display:block; margin:auto;cursor: default; ">
+      <td><img src="/Users/huangpingchen/Desktop/SA New/trash.svg"
+              style="width:30px;height:30px;display:block; margin:auto;cursor: default; ">
+  <tr>
+    <td>系統分析與設計
+    <td>XXX
+    <td>107
+    <td>2
+      <td><img src="/Users/huangpingchen/Desktop/SA New/edit.svg"
+          style="width:30px;height:30px;display:block; margin:auto;cursor:pointer;">
+      <td><img src="/Users/huangpingchen/Desktop/SA New/edit2.svg"
+          style="width:30px;height:30px;display:block; margin:auto;cursor: default; ">
+      <td><img src="/Users/huangpingchen/Desktop/SA New/trash.svg"
+              style="width:30px;height:30px;display:block; margin:auto;cursor: default; ">
+  </table>
+
+</body>
+</html>
+
+  </div>
+
+
+
+</body>
+</html>
