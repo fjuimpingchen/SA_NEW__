@@ -1,0 +1,46 @@
+<html>
+<head>
+<title>Hello jQuery</title>
+<script
+  src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script>
+    var a ='https://api.airtable.com/v0/appRqjrTfb3fuBuIc/'+'Course/recdu8cD3Rlfuzw8W'
+    console.log(a);
+fetch(a,{
+  headers:{"Authorization": "Bearer keyX6caWycl8lSrpB","Content-Type": "application/json; charset=utf-8" },
+    method:'PUT',
+    body: JSON.stringify({
+        'fields':{
+  "Course_ID": "1072aaa",
+  "Course_name": "統計學",
+  "Subject_ID": "123123",
+  "Teacher_ID": [
+    "rec5uek1J4rHSCwR7"
+  ],
+  "Class_time_begin": "2019-05-08T00:00:00.000Z",
+  "Classroom": "ES701",
+  "Class_time_end": "2019-05-08T04:00:00.000Z",
+  "Year": 1072,
+  "Category": "必修",
+  "Credit": 3,
+  "Course_department": "管理學院",
+  "Teaching_language": "中文"}
+  })
+ 
+
+        }
+     )
+        
+    
+    
+
+
+</script>
+</head>
+
+<body>
+    <p id='a'></p>
+ <div name='a'>
+ </div>
+</body>
+</html>

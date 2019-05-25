@@ -1,0 +1,48 @@
+<html>
+<head>
+<title>Hello jQuery</title>
+<script
+  src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script>
+ $(document).ready(function() {
+  fetch('https://api.airtable.com/v0/appRqjrTfb3fuBuIc/Course',
+  {
+    headers:{"Authorization": "Bearer keyX6caWycl8lSrpB"}
+  }
+  )
+  .then(response => response.json())
+  .then(function(Course) {
+      fetch('https://api.airtable.com/v0/appRqjrTfb3fuBuIc/Time',//最後一欄為表格名稱
+  {
+    headers:{"Authorization": "Bearer keyX6caWycl8lSrpB"}
+  })
+.then(response => response.json())
+.then(function(Time){
+          console.log(Course);//陣列，把所有的資料存在裡面
+          console.log(Time);
+    });
+    $.each(Course.records, function(i, item) {
+     $('#customer_tbl tbody').append("<tr><td>");
+     $('#customer_tbl tbody').append(item.fields.Course_ID);
+     $('#customer_tbl tbody').append("</td><td>");
+     $('#customer_tbl tbody').append(item.fields.Course_department);
+     $('#customer_tbl tbody').append("</td></tr>");
+    })
+  });
+ });
+</script>
+</head>
+
+<body>
+ <table id="customer_tbl">
+  <thead>
+   <tr>
+    <th>Name</th>
+    <th>Age</th>
+   </tr>
+  </thead>
+  <tbody>
+  </tbody>
+ </table>
+</body>
+</html>
