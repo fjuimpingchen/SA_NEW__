@@ -25,6 +25,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script>
+        var plus_test= "<thead><tr><th></th><th>課程名稱</i></th><th>授課老師</th><th>發布者</i></th><th>發布時間</th><th>評論</th></tr></thead>";
+    var timeArray = [];
             var plusArray = [];
           var StudentidArray = [];
           var TeacheridArray = [];
@@ -75,18 +77,23 @@
                  studentid = Comment.fields.Student_ID[0];
                stu_in = StudentidArray.indexOf(studentid);
                studentname = Student.records[stu_in].fields.Student_name;
-        if(Courseid==(Comment.fields.Course_ID)){
-            num = num+1;
-            plus = plus+ "<tr><td>" + num + "</td><td>" +Coursename+"</td><td>"+ teachername+"</td><td>" + studentname+"</td><td>2019-11-11</td><td>" +"  <a href='commet_view.html' class='view' title='view' data-toggle='tooltip' onclick='window.location=commet_view.html'><i class='material-icons'>&#xE417;</i></a></td></tr>"
-          //  plus = "<tr><td>1</td><td>系統分析與設計</td><td>吳濟聰</td><td>王小美</td><td>2019-11-11</td><td>		              <a href='#' class='view' title='view' data-toggle='tooltip' onclick='window.location=commet_view.html'><i class='material-icons'>&#xE417;</i></a></td></tr>";
-            x=document.getElementById("demo");  // 找到元素
-            x.innerHTML=plus;    // 改变内容
-        //
-             
-         //   alert(Coursename+"  "+Comment.fields.Comments);
-        }   // 改变内容
+             Time = Comment.fields.modify_time;
+                Timea = Time.split("T");
+                Time = Timea[0];
+             plusArray.push({Coursename:Coursename,teachername:teachername,studentname:studentname,Time:Time});
+             plusArray = plusArray.sort(function(a,b){
+                 return a.Time<b.Time ? 1:-1;
+             })
     
     })
+           console.log(plusArray);
+    $.each(plusArray,function(i,item){
+            num = i+1;
+            plus_test =plus_test+"<tr><td>" + num + "</td><td>" +item.Coursename+"</td><td>"+ item.teachername+"</td><td>" + item.studentname+"</td><td>"+item.Time+"</td><td>" +"  <a href='commet_view.html' class='view' title='view' data-toggle='tooltip' onclick='window.location=commet_view.html'><i class='material-icons'>&#xE417;</i></a></td></tr>";
+             x=document.getElementById("demo");  // 找到元素
+            x.innerHTML=plus_test;    // 改变内容
+               
+           })
         
        
        })
@@ -228,8 +235,7 @@
   
 <script>
       function search(){
-
-          
+          var Courseid;
           var plusArray = [];
           var StudentidArray = [];
           var TeacheridArray = [];
@@ -285,41 +291,64 @@
                  studentid = Comment.fields.Student_ID[0];
                stu_in = StudentidArray.indexOf(studentid);
                studentname = Student.records[stu_in].fields.Student_name;
+               Time = Comment.fields.modify_time;
+                Timea = Time.split("T");
+                Time = Timea[0];
                
                
-           }}
+           } else{
+         
+             x=document.getElementById("demo");
+            x.innerHTML=plus + "<tr><td  colspan=6><h1 align=center>查無相關課程！！！！！！</h1></td></tr>";    
+            }}
           else if(search=="WY" && keyword!=""){// 依作者
                 index = StudentidArray.indexOf(Comment.fields.Student_ID[0]);
-                  if(Student.records[index].fields.Student_name.match(keyword)){
-                Coursename = Course.records[index].fields.Course_name;
-                 Courseid = Course.records[index].id;
-                 CourseArray = Course.records[index].fields;
-                 teacherid = Course.records[index].fields.Teacher_ID[0];
+                  if(Student.records[index].fields.Student_name==(keyword)){
+                      co_index = CourseidArray.indexOf(Comment.fields.Course_ID[0]);
+                Coursename = Course.records[co_index].fields.Course_name;
+                 Courseid = Course.records[co_index].id;
+                 CourseArray = Course.records[co_index].fields;
+                 teacherid = Course.records[co_index].fields.Teacher_ID[0];
                  studentid = Comment.fields.Student_ID[0];
                 tea_in = TeacheridArray.indexOf(teacherid);
                teachername = Teacher.records[tea_in].fields.Teacher_name;
                stu_in = StudentidArray.indexOf(studentid);
                studentname = Student.records[stu_in].fields.Student_name;
-                     
-                 }
+                Time = Comment.fields.modify_time;
+                Timea = Time.split("T");
+                Time = Timea[0];
+              
+                 } else{
+         
+             x=document.getElementById("demo"); 
+            x.innerHTML=plus + "<tr><td  colspan=6><h1 align=center>查無相關課程！！！！！！</h1></td></tr>";    
+            }
                  
              }
-        
-        if(Courseid==(Comment.fields.Course_ID)){
-            num = num+1;
-            plus = plus+ "<tr><td>" + num + "</td><td>" +Coursename+"</td><td>"+ teachername+"</td><td>" + studentname+"</td><td>2019-11-11</td><td>" +"  <a href='commet_view.html' class='view' title='view' data-toggle='tooltip' onclick='window.location=commet_view.html'><i class='material-icons'>&#xE417;</i></a></td></tr>"
-          //  plus = "<tr><td>1</td><td>系統分析與設計</td><td>吳濟聰</td><td>王小美</td><td>2019-11-11</td><td>		              <a href='#' class='view' title='view' data-toggle='tooltip' onclick='window.location=commet_view.html'><i class='material-icons'>&#xE417;</i></a></td></tr>";
-            x=document.getElementById("demo");  // 找到元素
-            x.innerHTML=plus;    // 改变内容
-        //
-             
-         //   alert(Coursename+"  "+Comment.fields.Comments);
-        }   // 改变内容
+            else{
+         
+             x=document.getElementById("demo");
+            x.innerHTML=plus + "<tr><td  colspan=6><h1 align=center>查無相關課程！！！！！！</h1></td></tr>";   
+            }
+    
+        if(Courseid==(Comment.fields.Course_ID[0])){ //依評論時間排序
+            plusArray.push({Coursename:Coursename,teachername:teachername,studentname:studentname,Time:Time});
+             plusArray = plusArray.sort(function(a,b){
+                 return a.Time<b.Time ? 1:-1;})
+        }  
     
     })
+            $.each(plusArray,function(i,item){
+            num = i+1;
+            plus =plus+"<tr><td>" + num + "</td><td>" +item.Coursename+"</td><td>"+ item.teachername+"</td><td>" + item.studentname+"</td><td>"+item.Time+"</td><td>" +"  <a href='commet_view.html' class='view' title='view' data-toggle='tooltip' onclick='window.location=commet_view.html'><i class='material-icons'>&#xE417;</i></a></td></tr>";
+             x=document.getElementById("demo");
+            x.innerHTML=plus;  
+               
+           })
         
        
        })
+            
         })
         })
      })
