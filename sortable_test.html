@@ -11,146 +11,186 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="sortable_test.css">
 
-  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
-
 <!--JQuery-->
 <script src="http://code.jquery.com/jquery-3.3.1.js"></script>
-<!--Select2-->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<script src="jquery-3.4.0.min.js"></script>
 
-<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<!-- Sortable v1.6.1/ -->
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.6.1/Sortable.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-sortable/0.9.13/jquery-sortable-min.js"></script>
 
 </head>
 <body>
 
-  <!-- <table>
-      <thead>
-        <tr class="ui-state-default">
-          <th colspan="4">Original</th>
-          <th colspan="4">table heading</th>
-          <th colspan="4">table heading</th>
-          <th colspan="4">table heading</th>
-          <th colspan="4">table heading</th>
-          <th colspan="4">Current Pos</th>
-        </tr>
-      </thead>
-      <tfoot>
-        <tr class="ui-state-default">
-          <th colspan="4">Original</th>
-          <th colspan="4">table footer</th>
-          <th colspan="4">table footer</th>
-          <th colspan="4">table footer</th>
-          <th colspan="4">table footer</th>
-          <th colspan="4">Current Pos</th>
-        </tr>
-      </tfoot>
-      <tbody>
-      <tr class="ui-state-default">
-        <th colspan="4">First Row</th>
-        <td colspan="4">data</td>
-        <td colspan="4">data</td>
-        <td colspan="4">data</td>
-        <td colspan="4">data</td>
-        <td colspan="4">1</td>
-      </tr>
-      <tr class="ui-state-default even">
-        <th colspan="4">Second Row</th>
-        <td colspan="4">data</td>
-        <td colspan="4">data</td>
-        <td colspan="4">data</td>
-        <td colspan="4">data</td>
-        <td colspan="4">2</td>
-      </tr>
-      <tr class="ui-state-default">
-        <th colspan="4">Third Row</th>
-        <td colspan="4">data</td>
-        <td colspan="4">data</td>
-        <td colspan="4">data</td>
-        <td colspan="4">data</td>
-        <td colspan="4">3</td>
-      </tr>
-      <tr class="ui-state-default even">
-        <th colspan="4">Fourth Row</th>
-        <td colspan="4">data</td>
-        <td colspan="4">data</td>
-        <td colspan="4">data</td>
-        <td colspan="4">data</td>
-        <td colspan="4">4</td>
-      </tr>
-      <tr class="ui-state-default">
-        <th colspan="4">Fifth Row</th>
-        <td colspan="4">data</td>
-        <td colspan="4">data</td>
-        <td colspan="4">data</td>
-        <td colspan="4">data</td>
-        <td colspan="4">5</td>
-      </tr>
-      </tbody>
-  </table> -->
-
-
-  <ul id="items-list" class="moveable">
-    <li id ="1">One</li>
-    <li>Two <input type="button" id="btn1" value="removeTxt"/>  </li>
-    <li>Three</li>
-    <li>Four</li>
-</ul>
-
-
-
+  <div class="container">
+    <div class="row clearfix">
+    	<div class="col-md-12 table-responsive">
+			<table class="table table-bordered table-hover table-sortable" id="tab_logic">
+				<thead>
+					<tr >
+						<th class="text-center">
+							Name
+						</th>
+						<th class="text-center">
+							Email
+						</th>
+						<th class="text-center">
+							Notes
+						</th>
+    					<th class="text-center">
+							Option
+						</th>
+        				<th class="text-center" style="border-top: 1px solid #ffffff; border-right: 1px solid #ffffff;">
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+    			<tr id='addr0' data-id="0" class="hidden">
+						<td data-name="name">
+						    <input type="text" name='name0'  placeholder='Name' class="form-control"/>
+						</td>
+						<td data-name="mail">
+						    <input type="text" name='mail0' placeholder='Email' class="form-control"/>
+						</td>
+						<td data-name="desc">
+						    <textarea name="desc0" placeholder="Description" class="form-control"></textarea>
+						</td>
+    					<td data-name="sel">
+						    <select name="sel0">
+        				        <option value"">Select Option</option>
+    					        <option value"1">Option 1</option>
+        				        <option value"2">Option 2</option>
+        				        <option value"3">Option 3</option>
+						    </select>
+						</td>
+                        <td data-name="del">
+                            <button nam"del0" class='btn btn-danger glyphicon glyphicon-remove row-remove'></button>
+                        </td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<a id="add_row" class="btn btn-default pull-right">Add Row</a>
+</div>
 
 <script>
 
-let items = document.querySelectorAll('#items-list > li')
+$(document).ready(function() {
+    $("#add_row").on("click", function() {
+        // Dynamic Rows Code
 
-items.forEach(item => {
-  $(item).prop('draggable', true)
-  item.addEventListener('dragstart', dragStart)
-  item.addEventListener('drop', dropped)
-  item.addEventListener('dragenter', cancelDefault)
-  item.addEventListener('dragover', cancelDefault)
-})
+        // Get max row id and set new id
+        var newid = 0;
+        $.each($("#tab_logic tr"), function() {
+            if (parseInt($(this).data("id")) > newid) {
+                newid = parseInt($(this).data("id"));
+            }
+        });
+        newid++;
 
-function dragStart (e) {
-  var index = $(e.target).index()
-  e.dataTransfer.setData('text/plain', index)
-}
+        var tr = $("<tr></tr>", {
+            id: "addr"+newid,
+            "data-id": newid
+        });
 
-function dropped (e) {
-  cancelDefault(e)
+        // loop through each td and create new elements with name of newid
+        $.each($("#tab_logic tbody tr:nth(0) td"), function() {
+            var cur_td = $(this);
 
-  // get new and old index
-  let oldIndex = e.dataTransfer.getData('text/plain')
-  let target = $(e.target)
-  let newIndex = target.index()
-
-  // remove dropped items at old place
-  let dropped = $(this).parent().children().eq(oldIndex).remove()
-
-  // insert the dropped items at new place
-  if (newIndex < oldIndex) {
-    target.before(dropped)
-  } else {
-    target.after(dropped)
-  }
-}
-
-function cancelDefault (e) {
-  e.preventDefault()
-  e.stopPropagation()
-  return false
-}
-  $("#btn1").click(function () {
-    $("#1").remove();
-  });
+            var children = cur_td.children();
 
 
 
+            // add new td and element if it has a nane
+            if ($(this).data("name") != undefined) {
+                var td = $("<td></td>", {
+                    "data-name": $(cur_td).data("name")
+                });
+
+                var c = $(cur_td).find($(children[0]).prop('tagName')).clone().val("");
+                c.attr("name", $(cur_td).data("name") + newid);
+                c.appendTo($(td));
+                td.appendTo($(tr));
+            } else {
+                var td = $("<td></td>", {
+                    'text': $('#tab_logic tr').length
+                }).appendTo($(tr));
+            }
+        });
+
+        // add delete button and td
+        /*
+        $("<td></td>").append(
+            $("<button class='btn btn-danger glyphicon glyphicon-remove row-remove'></button>")
+                .click(function() {
+                    $(this).closest("tr").remove();
+                })
+        ).appendTo($(tr));
+        */
+
+        // add the new row
+        $(tr).appendTo($('#tab_logic'));
+
+        $(tr).find("td button.row-remove").on("click", function() {
+             $(this).closest("tr").remove();
+        });
+});
+
+
+
+
+    // Sortable Code
+    var fixHelperModified = function(e, tr) {
+        var $originals = tr.children();
+        var $helper = tr.clone();
+
+        $helper.children().each(function(index) {
+            $(this).width($originals.eq(index).width())
+        });
+
+        return $helper;
+    };
+
+    $(".table-sortable tbody").sortable({
+        helper: fixHelperModified
+    }).disableSelection();
+
+    $(".table-sortable thead").disableSelection();
+
+
+
+    $("#add_row").trigger("click");
+});
 </script>
+
+
+<div class="example">
+  	<ul id="items">
+  		<li class="item">li 1</li>
+  		<li class="ignore">li 2(ignore)</li>
+  		<li class="item">li 3</li>
+  		<li class="item">li 4</li>
+  	</ul>
+  </div>
+  <script>
+  	var el = document.getElementById( "items" );
+  	Sortable.create(el, {
+  		// 參數設定[註1]
+  		disabled: false, // 關閉Sortable
+  		animation: 150,  // 物件移動時間(單位:毫秒)
+  		handle: ".example",  // 可拖曳的區域
+  		filter: ".ignore",  // 過濾器，不能拖曳的物件
+  		preventOnFilter: true, // 當過濾器啟動的時候，觸發event.preventDefault()
+  		draggable: ".item",  // 可拖曳的物件
+  		ghostClass: "sortable-ghost",  // 拖曳時，給予物件的類別
+  		chosenClass: "sortable-chosen",  // 選定時，給予物件的類別
+  		forceFallback: false  // 忽略HTML5 DnD
+  	});
+  </script>
+
+
 
 </body>
 </html>
