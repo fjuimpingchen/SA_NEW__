@@ -23,6 +23,15 @@
 
 </head>
 <body>
+   <?php
+session_start();
+   
+if(isset($_GET['id'])!=""){
+    $_SESSION['userid']= $_GET['id']; 
+    $_SESSION['username']= $_GET['name']; 
+}
+      
+?>
 
   <!-- 上方導覽列 -->
     <?php
