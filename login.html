@@ -4,7 +4,9 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
+
 <html lang="en">
+
 <head>
 
     <link rel="stylesheet" href="login.css">
@@ -22,7 +24,9 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-
+    <script
+  src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+    </script>
     <title>輔大選課系統登入</title>
 </head>
 <body>
@@ -30,9 +34,9 @@
 <nav class="navbar navbar-expand-lg navbar-light navbar-laravel">
     <div class="container">
         <a class="navbar-brand" href="#">輔仁大學選課系統</a>
-        <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
-        </button> -->
+        </button>
 <!--
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
@@ -65,8 +69,10 @@
 
                             <div class="form-group row">
                                 <label for="password" class="col-md-4 col-form-label text-md-right">密碼：</label>
+                                
                                 <div class="col-md-6">
                                     <input type="password" id="password" class="form-control" name="password" required>
+                                    
                                 </div>
                             </div>
 
@@ -81,20 +87,58 @@
                             </div> -->
 
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary" onclick="window.location='search_new.html'">
+                                <button type="submit" class="btn btn-primary" onclick="Login()">
                                     登入
                                 </button>
-                                <!-- <a href="https://whoami.fju.edu.tw/pw_change.php" class="btn btn-link">
+                                <a href="https://whoami.fju.edu.tw/pw_change.php" class="btn btn-link">
                                     忘記密碼？
-                                </a> -->
+                                </a>
                             </div>
+                    </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+    </div>
 
 </main>
+
+<script>
+    function Login(){                               
+            var email_address = document.getElementById("email_address").value;
+            var password = document.getElementById("password").value;
+
+   $(document).ready(function() {
+        fetch('https://api.airtable.com/v0/appRqjrTfb3fuBuIc/Student',
+        {
+        headers:{"Authorization": "Bearer keyX6caWycl8lSrpB"}
+        }
+        )
+        .then(response => response.json())
+        .then(function(Student) {
+            console.log(Student);
+        var len=Student.records.length;
+        $.each(Student.records, function(i, item) {
+
+            if(item.fields.Student_ID == email_address && item.fields.Password == password){
+                 //alert ("Login successfully");
+                window.location = "success.html"; // Redirecting to other page.
+            }
+            else if(item.fields.Student_ID == email_address && item.fields.Password !== password){
+                 alert ("password Invalid");
+            }
+            else if (i == len - 1) {
+            // this is the last one
+                alert ("account Invalid");
+            }
+        })
+        });
+        });
+    };
+
+</script>
+
 
 
 
