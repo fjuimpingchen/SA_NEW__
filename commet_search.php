@@ -28,6 +28,83 @@
     <!--Select2-->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+ <script>
+        var plus_test= "<thead><tr><th></th><th>課程名稱</i></th><th>授課老師</th><th>發布者</i></th><th>發布時間</th><th>評論</th></tr></thead>";
+    var timeArray = [];
+            var plusArray = [];
+          var StudentidArray = [];
+          var TeacheridArray = [];
+          var CourseidArray = [];
+          var CommentidArray = [];
+    fetch('https://api.airtable.com/v0/appRqjrTfb3fuBuIc/Student',{
+    headers:{"Authorization": "Bearer keyX6caWycl8lSrpB"}
+  }
+  ).then(response => response.json())
+    .then(function(Student){
+        $.each(Student.records,function(i,Student){
+            StudentidArray.push(Student.id);
+        })
+     fetch('https://api.airtable.com/v0/appRqjrTfb3fuBuIc/Teacher',{
+    headers:{"Authorization": "Bearer keyX6caWycl8lSrpB"}
+  }
+  ).then(response => response.json())
+     .then(function(Teacher){
+         $.each(Teacher.records,function(i,Teacher){
+             TeacheridArray.push(Teacher.id);
+         })
+        fetch('https://api.airtable.com/v0/appRqjrTfb3fuBuIc/Course',{
+    headers:{"Authorization": "Bearer keyX6caWycl8lSrpB"}
+  }
+  )
+  .then(response => response.json())
+  .then(function(Course){
+            $.each(Course.records,function(i,Course){
+                CourseidArray.push(Course.id);
+            })
+       fetch('https://api.airtable.com/v0/appRqjrTfb3fuBuIc/Comment',{
+    headers:{"Authorization": "Bearer keyX6caWycl8lSrpB"}
+  }
+  )
+  .then(response => response.json())
+  .then(function(Comment){
+           var plus = "<thead><tr><th></th><th>課程名稱</i></th><th>授課老師</th><th>發布者</i></th><th>發布時間</th><th>評論</th></tr></thead>";
+           var num = 0;
+         $.each(Comment.records, function(i, Comment) {
+             Commentpos = i;
+            index = CourseidArray.indexOf(Comment.fields.Course_ID[0]);
+                Coursename = Course.records[index].fields.Course_name;
+                 Courseid = Course.records[index].id;
+                 CourseArray = Course.records[index].fields;
+                 teacherid = Course.records[index].fields.Teacher_ID[0];
+               tea_in = TeacheridArray.indexOf(teacherid);
+               teachername = Teacher.records[tea_in].fields.Teacher_name;
+                 studentid = Comment.fields.Student_ID[0];
+               stu_in = StudentidArray.indexOf(studentid);
+               studentname = Student.records[stu_in].fields.Student_name;
+             Time = Comment.fields.modify_time;
+                Timea = Time.split("T");
+                Time = Timea[0];
+             plusArray.push({Coursename:Coursename,teachername:teachername,studentname:studentname,Time:Time});
+             plusArray = plusArray.sort(function(a,b){
+                 return a.Time<b.Time ? 1:-1;
+             })
+    
+    })
+           console.log(plusArray);
+    $.each(plusArray,function(i,item){
+            num = i+1;
+            plus_test =plus_test+"<tr><td>" + num + "</td><td>" +item.Coursename+"</td><td>"+ item.teachername+"</td><td>" + item.studentname+"</td><td>"+item.Time+"</td><td>" +"  <a href='commet_view.html' class='view' title='view' data-toggle='tooltip' onclick='window.location=commet_view.html'><i class='material-icons'>&#xE417;</i></a></td></tr>";
+             x=document.getElementById("demo") // 找到元素
+            x.innerHTML= plus_test  // 改变内容
+               
+           })
+        
+       
+       })
+        })
+        })
+     })
+</script>
 
 
 
@@ -52,6 +129,7 @@ session_start();
 
 
 <!-- 搜尋評論 -->
+     <form name="form_name" id="form_name">
   <div class="container" style="margin-top:100px">
       <div class="row">
           <div class="col-xs-8 col-xs-offset-2">
@@ -73,14 +151,143 @@ session_start();
                   </div>
 
                   <input type="hidden" name="search_param" value="all" id="search_param">
-                  <input type="text" class="form-control" name="x" placeholder="搜尋">
+                  <input type="text" class="form-control" name="x" placeholder="搜尋" id='x'>
                   <span class="input-group-btn">
-                      <button class="btn btn-default" type="button" style="margin-top:28px"><span class="glyphicon glyphicon-search"></span></button>
+                      <button class="btn btn-default" type="button" style="margin-top:28px" onclick=search()><span class="glyphicon glyphicon-search"></span></button>
                   </span>
               </div>
           </div>
   	</div>
   </div>
+    </form>
+  
+    <script>
+          function search(){
+          var Courseid;
+          var plusArray = [];
+          var StudentidArray = [];
+          var TeacheridArray = [];
+          var CourseidArray = [];
+          var CommentidArray = [];
+         var form = document.getElementById("form_name");
+        var search = form.state.value;
+            var keyword = document.getElementById('x').value;
+        if(keyword == ""){
+            alert("搜尋欄位不能為空！");
+            return;
+        }
+    fetch('https://api.airtable.com/v0/appRqjrTfb3fuBuIc/Student',{
+    headers:{"Authorization": "Bearer keyX6caWycl8lSrpB"}
+  }
+  ).then(response => response.json())
+    .then(function(Student){
+        $.each(Student.records,function(i,Student){
+            StudentidArray.push(Student.id);
+        })
+     fetch('https://api.airtable.com/v0/appRqjrTfb3fuBuIc/Teacher',{
+    headers:{"Authorization": "Bearer keyX6caWycl8lSrpB"}
+  }
+  ).then(response => response.json())
+     .then(function(Teacher){
+         $.each(Teacher.records,function(i,Teacher){
+             TeacheridArray.push(Teacher.id);
+         })
+        fetch('https://api.airtable.com/v0/appRqjrTfb3fuBuIc/Course',{
+    headers:{"Authorization": "Bearer keyX6caWycl8lSrpB"}
+  }
+  )
+  .then(response => response.json())
+  .then(function(Course){
+            $.each(Course.records,function(i,Course){
+                CourseidArray.push(Course.id);
+            })
+       fetch('https://api.airtable.com/v0/appRqjrTfb3fuBuIc/Comment',{
+    headers:{"Authorization": "Bearer keyX6caWycl8lSrpB"}
+  }
+  )
+  .then(response => response.json())
+  .then(function(Comment){
+           var plus = "<thead><tr><th></th><th>課程名稱</i></th><th>授課老師</th><th>發布者</i></th><th>發布時間</th><th>評論</th></tr></thead>";
+           var num = 0;
+         $.each(Comment.records, function(i, Comment) {
+             Commentpos = i;
+        if(search =="AL" && keyword!=""){//依課程關鍵字
+            index = CourseidArray.indexOf(Comment.fields.Course_ID[0]);
+           if(Course.records[index].fields.Course_name.match(keyword)){
+                Coursename = Course.records[index].fields.Course_name;
+                 Courseid = Course.records[index].id;
+                 CourseArray = Course.records[index].fields;
+                 teacherid = Course.records[index].fields.Teacher_ID[0];
+               tea_in = TeacheridArray.indexOf(teacherid);
+               teachername = Teacher.records[tea_in].fields.Teacher_name;
+                 studentid = Comment.fields.Student_ID[0];
+               stu_in = StudentidArray.indexOf(studentid);
+               studentname = Student.records[stu_in].fields.Student_name;
+               Time = Comment.fields.modify_time;
+                Timea = Time.split("T");
+                Time = Timea[0];
+               
+               
+           } else{
+         
+             x=document.getElementById("demo");
+            x.innerHTML=plus + "<tr><td  colspan=6><h1 align=center>查無相關課程！！！！！！</h1></td></tr>";    
+            }}
+          else if(search=="WY" && keyword!=""){// 依作者
+                index = StudentidArray.indexOf(Comment.fields.Student_ID[0]);
+                  if(Student.records[index].fields.Student_name==(keyword)){
+                      co_index = CourseidArray.indexOf(Comment.fields.Course_ID[0]);
+                Coursename = Course.records[co_index].fields.Course_name;
+                 Courseid = Course.records[co_index].id;
+                 CourseArray = Course.records[co_index].fields;
+                 teacherid = Course.records[co_index].fields.Teacher_ID[0];
+                 studentid = Comment.fields.Student_ID[0];
+                tea_in = TeacheridArray.indexOf(teacherid);
+               teachername = Teacher.records[tea_in].fields.Teacher_name;
+               stu_in = StudentidArray.indexOf(studentid);
+               studentname = Student.records[stu_in].fields.Student_name;
+                Time = Comment.fields.modify_time;
+                Timea = Time.split("T");
+                Time = Timea[0];
+              
+                 } else{
+         
+             x=document.getElementById("demo"); 
+            x.innerHTML=plus + "<tr><td  colspan=6><h1 align=center>查無相關課程！！！！！！</h1></td></tr>";    
+            }
+                 
+             }
+        else if(keyword == ""){
+            return;
+        }
+            else{
+         
+             x=document.getElementById("demo");
+            x.innerHTML=plus + "<tr><td  colspan=6><h1 align=center>查無相關課程！！！！！！</h1></td></tr>";   
+            }
+    
+        if(Courseid==(Comment.fields.Course_ID[0])){ //依評論時間排序
+            plusArray.push({Coursename:Coursename,teachername:teachername,studentname:studentname,Time:Time});
+             plusArray = plusArray.sort(function(a,b){
+                 return a.Time<b.Time ? 1:-1;})
+        }  
+    
+    })
+            $.each(plusArray,function(i,item){
+            num = i+1;
+            plus =plus+"<tr><td>" + num + "</td><td>" +item.Coursename+"</td><td>"+ item.teachername+"</td><td>" + item.studentname+"</td><td>"+item.Time+"</td><td>" +"  <a href='commet_view.html' class='view' title='view' data-toggle='tooltip' onclick='window.location=commet_view.html'><i class='material-icons'>&#xE417;</i></a></td></tr>";
+             x=document.getElementById("demo");
+            x.innerHTML=plus;  
+               
+           })
+        
+       
+       })
+            
+        })
+        })
+     })
+    }</script>
 
   <script>
   $(document).ready(function(e){
@@ -109,78 +316,25 @@ session_start();
                       </div> -->
                   </div>
               </div>
-              <table class="table table-striped table-hover table-bordered" style="margin-top:30px">
+              <table class="table table-striped table-hover table-bordered" style="margin-top:30px" id='demo'>
                   <thead>
                       <tr>
                           <th></th>
-                          <th>課程名稱</i></th>
+                          <th>課程名稱</th>
                           <th>授課老師</th>
-                          <th>發布者</i></th>
+                          <th>發布者</th>
                           <th>發布時間</th>
                           <th>評論</th>
-                          <!-- <th>Country <i class="fa fa-sort"></i></th> -->
                       </tr>
                   </thead>
                   <tbody>
                       <tr>
-                          <td>1</td>
-                          <td>系統分析與設計</td>
-                          <td>吳濟聰</td>
-                          <td>王小美</td>
-                          <td>2019-11-11</td>
-                          <td>
-  							              <a href="#" class="view" title="view" data-toggle="tooltip" onclick="window.location='commet_view.php'"><i class="material-icons">&#xE417;</i></a>
+                          <td colspan="6">請稍候......</td>
+                          
                               <!-- <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
                               <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a> -->
-                          </td>
                       </tr>
-                      <tr>
-                          <td>2</td>
-                          <td>經濟學</td>
-                          <td>周靜琴</td>
-                          <td>王小明</td>
-                          <td>2019-12-03</td>
-                          <td>
-  							              <a href="#" class="view" title="view" data-toggle="tooltip" onclick="window.location='commet_view.php'"><i class="material-icons">&#xE417;</i></a>
-                              <!-- <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                              <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a> -->
-                          </td>
-                      </tr>
-                      <tr>
-                          <td>3</td>
-                          <td>統計學</td>
-                          <td>李俊民</td>
-                          <td></td>
-                          <td>2019-03-24</td>
-                          <td>
-  							               <a href="#" class="view" title="view" data-toggle="tooltip" onclick="window.location='commet_view.php'"><i class="material-icons">&#xE417;</i></a>
-                              <!-- <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                              <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a> -->
-                          </td>
-                      </tr>
-                      <tr>
-                          <td>4</td>
-                          <td>資料結構</td>
-                          <td>蔡姓真</td>
-                          <td>吳丁丁</td>
-                          <td>2019-09-23</td>
-                          <td>
-  							                <a href="#" class="view" title="view" data-toggle="tooltip" onclick="window.location='commet_view.php'"><i class="material-icons">&#xE417;</i></a>
-                              <!-- <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                              <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a> -->
-                          </td>
-                      </tr>
-                      <tr>
-                          <td>5</td>
-                          <td>電子商務</td>
-                          <td>廖建祥</td>
-                          <td>李曉萱</td>
-                          <td>2019-08-07</td>
-                          <td>
-  							               <a href="#" class="view" title="view" data-toggle="tooltip" onclick="window.location='commet_view.php'"><i class="material-icons">&#xE417;</i></a>
-                              <!-- <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a> -->
-                          </td>
-                      </tr>
+                     
                   </tbody>
               </table>
               <div class="clearfix">
