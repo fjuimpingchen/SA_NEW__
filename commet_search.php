@@ -33,7 +33,9 @@
 
 </head>
 <body>
-
+<?php
+session_start();
+?>
   <!-- 上方導覽列 -->
     <?php
     include('navbar.php');
