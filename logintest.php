@@ -56,7 +56,7 @@ session_start();
                 // alert ("Login successfully");
                 id=email_address;
                 var name=item.fields.Student_name;
-                window.location = "search_new.php"; // Redirecting to other page. 
+                //window.location = "search_new.php"; // Redirecting to other page. 
                 location.href ="search_new_after.php?id=" + id + "&name=" + name;
             }
 //            else if(item.fields.Student_ID == email_address && item.fields.Password !== password){
