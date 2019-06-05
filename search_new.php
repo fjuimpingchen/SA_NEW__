@@ -160,7 +160,7 @@
 
    </div>
        <span class="input-group-btn" style="left: 1050px" >
-                   <button class="btn btn-default" type="button"  onclick="location.href='search%20_new_after.php'" style="position:relative; " ><span class="glyphicon glyphicon-search"></span></button>
+                   <button class="btn btn-default" type="button"  onclick="location.href='search_new_after.php'" style="position:relative; " ><span class="glyphicon glyphicon-search"></span></button>
                </span>
 
 
