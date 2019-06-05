@@ -27,6 +27,9 @@ alert('系統關閉\n\n此時段為非預選時段');
 </script>
 
 
+<?php
+    include('session_start.php');
+     ?>
 
 <!-- 上方導覽列 -->
   <?php
