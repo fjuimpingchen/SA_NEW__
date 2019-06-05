@@ -27,8 +27,8 @@
 </head>
 <body>
 <?php
-session_start();
-?>
+    include('session_start.php');
+     ?>
   <!-- 上方導覽列 -->
     <?php
     include('navbar.php');

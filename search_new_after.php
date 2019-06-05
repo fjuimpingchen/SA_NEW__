@@ -19,22 +19,19 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 
+
+
 </head>
 <body>
-
-  <script language="javascript">
-alert('系統關閉\n\n此時段為非預選時段');
-</script>
-
-
-<?php
+  <?php
     include('session_start.php');
      ?>
 
-<!-- 上方導覽列 -->
-  <?php
-  include('navbar.php');
-   ?>
+  <!-- 上方導覽列 -->
+    <?php
+    include('navbar.php');
+     ?>
+
 
      <br><br><br><br>
 
@@ -166,13 +163,148 @@ alert('系統關閉\n\n此時段為非預選時段');
 
    </div>
        <span class="input-group-btn" style="left: 1050px" >
-                   <button class="btn btn-default" type="button"  onclick="location.href='search_prev_new_after.php'" style="position:relative; " ><span class="glyphicon glyphicon-search"></span></button>
+                   <button class="btn btn-default" type="button"  onclick="location.href='search%20_new_after.php'" style="position:relative; " ><span class="glyphicon glyphicon-search"></span></button>
                </span>
 
 
 
-    <script>
-    $(document).ready(function(e){
+
+
+
+</form>
+
+          <div class="table-wrapper">
+              <div class="table-title">
+                  <div class="row">
+
+
+                  </div>
+              </div>
+              <table class="table table-striped table-hover table-bordered">
+                  <thead>
+                      <tr>
+                          <th>序號</th>
+                          <th>開課單位 </th>
+                          <th>課程名稱</th>
+                          <th>老師 </th>
+                          <th>學分</th>
+						              <th>開課選別/期次</th>
+                          <th>上課時間 </th>
+                          <th>加選</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr>
+                          <td>1</td>
+                          <td>資訊管理系所</td>
+                          <td>統計學</td>
+                          <td>李俊民</td>
+                          <td>3</td>
+						  <th>必02</th>
+                          <td>Wed D2-D4</td>
+                          <td>
+  							<button type="button" class="btn btn-link"><i class="fas fa-plus material-icons" data-toggle="modal" data-target="#exampleModal"></i></button>
+							     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">加選</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        已成功選取
+      </div>
+      <div class="modal-footer">
+
+        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="location.href='search%20_new_afterAdd.php'">確定</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>2</td>
+                          <td>資訊管理系所</td>
+                          <td>經濟學</td>
+                          <td>周靖秦</td>
+                          <td>3</td>
+						  <th>必02</th>
+                          <td>Tue D2-D4</td>
+                          <td>
+  							<button type="button" class="btn btn-link"><i class="fas fa-plus material-icons" data-toggle="modal" data-target="#exampleModal"></i></button>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>3</td>
+                          <td>資訊管理系所</td>
+                          <td>系統分析與設計</td>
+                          <td>吳濟聰</td>
+                          <td>3</td>
+						  <th>必00</th>
+                          <td>Mon D2-D4</td>
+                          <td>
+  							<button type="button" class="btn btn-link"><i class="fas fa-plus material-icons" data-toggle="modal" data-target="#exampleModal"></i></button>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>4</td>
+                          <td>資訊管理系所</td>
+                          <td>創意創新專題</td>
+                          <td>林文修</td>
+                          <td>2</td>
+						  <th>必02</th>
+                          <td>Thu D3-D4</td>
+                          <td>
+  							<button type="button" class="btn btn-link"><i class="fas fa-plus material-icons" data-toggle="modal" data-target="#exampleModal"></i></button>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>5</td>
+                          <td>資訊管理系所</td>
+                          <td>資料結構</td>
+                          <td>蔡幸蓁</td>
+                          <td>3</td>
+						  <th>必00</th>
+                          <td>Fri D2-D4</td>
+                          <td>
+  							<button type="button" class="btn btn-link"><i class="fas fa-plus material-icons" data-toggle="modal" data-target="#exampleModal"></i></button>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+              <div class="clearfix">
+                  <ul class="pagination">
+                      <li class="page-item disabled"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
+                      <li class="page-item active"><a href="#" class="page-link">1</a></li>
+                      <li class="page-item"><a href="#" class="page-link">2</a></li>
+                      <li class="page-item"><a href="#" class="page-link">3</a></li>
+                      <li class="page-item"><a href="#" class="page-link">4</a></li>
+                      <li class="page-item"><a href="#" class="page-link">5</a></li>
+                      <li class="page-item"><a href="#" class="page-link"><i class="fa fa-angle-double-right"></i></a></li>
+                  </ul>
+              </div>
+          </div>
+          </div>
+
+      </div>
+
+	<script>
+
+$(document).ready(function() {
+    $('body').bootstrapMaterialDesign();
+
+    // Activate Popovers
+    $('[data-toggle="popover"]').popover();
+});
+	</script>
+
+
+    <script>$(document).ready(function(e){
     $('.search-panel .dropdown-menu').find('a').click(function(e) {
 		e.preventDefault();
 		var param = $(this).attr("href").replace("#","");
