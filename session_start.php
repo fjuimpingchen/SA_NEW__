@@ -2,6 +2,6 @@
 session_start();
     if(isset($_SESSION['userid'])=="")
 {
- header("Location:logintest.php");
+ header("Location:login.php");
 }
 ?>

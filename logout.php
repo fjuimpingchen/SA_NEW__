@@ -14,6 +14,6 @@ if(isset($_GET['logout']))
 {
  session_destroy();
  unset($_SESSION['userid']);
- header("Location: logintest.php");
+ header("Location: login.php");
 }
 ?>
