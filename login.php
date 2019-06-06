@@ -21,7 +21,9 @@
 
 
 <?php
-session_start();
+if(!isset($_SESSION)){
+   session_start();
+}
     if(isset($_SESSION['userid'])!="")
 {
  header("Location:search_new.php");
@@ -51,10 +53,10 @@ session_start();
                             </div>
                             <div class="form-group row">
                                 <label for="password" class="col-md-4 col-form-label text-md-right">密碼：</label>
-                            
+
                                     <div class="col-md-6">
                                         <input type="password" id="password" class="form-control" name="password" required>
-                                    
+
                                 </div>
                             </div>
                             <div class="col-md-6 offset-md-4">
@@ -92,7 +94,7 @@ session_start();
                             // alert ("Login successfully");
                             id = email_address;
                             var name = item.fields.Student_name;
-                            //window.location = "search_new.php"; // Redirecting to other page. 
+                            //window.location = "search_new.php"; // Redirecting to other page.
                             location.href = "search_new.php?id=" + id + "&name=" + name;
                         }
                         //            else if(item.fields.Student_ID == email_address && item.fields.Password !== password){
@@ -110,5 +112,3 @@ session_start();
     };
 
 </script>
-
-
