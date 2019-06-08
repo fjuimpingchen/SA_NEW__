@@ -3,7 +3,7 @@
 <head>
   <title>志願清單</title>
   <meta charset="UTF-8">
-  <!-- <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script> -->
+  <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
   <link rel="stylesheet" href="style.css">
 
 
@@ -19,6 +19,8 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
 
+<script src="jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+
 </head>
 <body>
 <?php
@@ -28,15 +30,6 @@
   <?php
   include('navbar.php');
    ?>
-
-
-    <script type="text/javascript">
-  $(document).ready(function(){
-  	$('[data-toggle="tooltip"]').tooltip();
-  });
-  </script>
-
-
 
 
 <!-- 志願清單 -->
@@ -123,8 +116,16 @@
                               <p>30</p>
                           </td>
                                       <td data-name="del">
-                                          <button name="del0" class='btn btn-danger glyphicon glyphicon-remove row-remove'><span aria-hidden="true"></span></button>
+                                          <button name="div1" class='btn btn-danger glyphicon glyphicon-remove row-remove'><span aria-hidden="true"></span></button>
                                       </td>
+
+                                      <script>
+$(document).ready(function(){
+  $("button").click(function(){
+    $("#div1").remove();
+  });
+});
+</script>
               					</tr>
 
                         <tr id='addr0' data-id="0">
@@ -231,7 +232,7 @@
               			</table>
               		</div>
               	</div>
-              	<a id="add_row" class="btn btn-primary float-right">儲存清單</a>
+              	<a class="btn btn-primary float-right">儲存清單</a>
               </div>
 
 

@@ -47,9 +47,33 @@
   });
   </script>
   </head>
+<script>
 
+  $(document).ready(function() {
 
+      var id;
+      fetch('https://api.airtable.com/v0/appRqjrTfb3fuBuIc/Department', {
+              headers: {
+                  "Authorization": "Bearer keyX6caWycl8lSrpB"
+              }
+          })
+          .then(response => response.json())
+          .then(function(Department) {
+              console.log(Department);
+              var len = Student.records.length;
+              $.each(Department.records, function(i, item) {
 
+                  if (item.fields.Student == <?php $_SESSION['id'] ?>) {
+                      // alert ("Login successfully");
+                      
+                  }
+
+              })
+          });
+  });
+};
+
+  </script>
 
 
 <!-- 評論表格 -->
@@ -64,13 +88,13 @@
     <img src="183748.svg" width="100" height="100" style="margin-top:0px"><br>
   <div style="position:relative;left:120px;top:-90px">
     <p style="font-size:16px ">
-      &nbsp;&nbsp;&nbsp;&nbsp;107學年度&nbsp;&nbsp;&nbsp;&nbsp;第2學期<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<?php echo $_GET['Year']?>學年度&nbsp;&nbsp;&nbsp;&nbsp;第<?php echo $_GET['section']?>學期<br>
     </p>
     <p style="font-size:16px ">
-      &nbsp;&nbsp;&nbsp;&nbsp;課程名稱：系統分析與設計<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;課程名稱：<?php echo $_GET['Coursename']?><br>
     </p>
     <p style="font-size:16px ">
-      &nbsp;&nbsp;&nbsp;&nbsp;授課教師：吳濟聰
+      &nbsp;&nbsp;&nbsp;&nbsp;授課教師：<?php echo $_GET['teachername']?>
     </p>
   </div>
 </div>
@@ -80,7 +104,7 @@
         <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" checked=""> 公開&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" checked=""> 非公開&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <img src="666201.png" width="30" height="30">
-        <label>系級：資訊管理學系 2年級&nbsp;&nbsp;&nbsp;姓名：王小美</label>
+        <label>系級：資訊管理學系 2年級&nbsp;&nbsp;&nbsp;姓名：<?php echo $_SESSION['username']?></label>
       </p>
     </div>
 

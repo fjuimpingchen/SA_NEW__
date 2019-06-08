@@ -86,7 +86,7 @@
                if(item.fields.Student_ID == "<? echo $_SESSION['userid']?>"){
                    $.each(item.fields.Pass_ID,function(i,item1){
                        num = i+1;
-                       
+
                        Course_index =CourseidArray.indexOf(item1);//找到course中的位置
                        Coursename = Course.records[Course_index].fields.Course_name;
                        Year = Course.records[Course_index].fields.Year;
@@ -94,15 +94,15 @@
                        teacher_index = TeacheridArray.indexOf(Course.records[Course_index].fields.Teacher_ID[0])
                        teachername = Teacher.records[teacher_index].fields.Teacher_name;
                        console.log(Coursename,teachername,Year,section);
-                       plus_test = plus_test+" <tr><td>"+num+"</td><td>"+Coursename+"</td><td>"+teachername+"</td><td>"+Year+"</td><td>第"+section+"學期</td><td><a href='#' class='view' title='write' data-toggle='tooltip' onclick=window.location='commet_new.php'><i class='fas fa-comments'></i></a></td></tr>"
-               
-                       
-                       
+                       plus_test = plus_test+" <tr><td>"+num+"</td><td>"+Coursename+"</td><td>"+teachername+"</td><td>"+Year+"</td><td>第"+section+"學期</td><td><a href='commet_new.php?Year="+item.Year+"&section="+item.section+"&Coursename="+item.Coursename+"&teachername="+item.teachername+"' class='view' title='write' data-toggle='tooltip' onclick=window.location='commet_new.php'><i class='fas fa-comments'></i></a></td></tr>"
+
+
+
                    })
                }
-               
+
            })
-            
+
           x=document.getElementById("demo"); // 找到元素
         x.innerHTML= plus_test ; // 改变内容
        })
