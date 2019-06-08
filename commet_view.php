@@ -141,7 +141,7 @@
   </symbol>
 </svg>
     <p for="exampleTextarea" style="font-size:16px ">評論內容（文字不得少於10字）：</p>
-    <textarea class="form-control" id="exampleTextarea" rows="5">老師很認真，會跟我們說許多思考不清楚的地方</textarea>
+    <textarea class="form-control" id="exampleTextarea" rows="5"><? echo $_GET['Comments'];?></textarea>
   </div>
 
 
