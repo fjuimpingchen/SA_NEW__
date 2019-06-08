@@ -28,7 +28,20 @@
     <!--Select2-->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
- <script>
+ 
+
+
+</head>
+<body>
+<?php
+    include('session_start.php');
+     ?>
+  <!-- 上方導覽列 -->
+    <?php
+    include('navbar.php');
+     ?>
+
+<script>
         var plus_test= "<thead><tr><th></th><th>課程名稱</i></th><th>授課老師</th><th>發布者</i></th><th>發布時間</th><th>評論</th></tr></thead>";
     var timeArray = [];
             var plusArray = [];
@@ -36,6 +49,16 @@
           var TeacheridArray = [];
           var CourseidArray = [];
           var CommentidArray = [];
+        var DepartmentidArray = [];
+     fetch('https://api.airtable.com/v0/appRqjrTfb3fuBuIc/Department',{
+    headers:{"Authorization": "Bearer keyX6caWycl8lSrpB"}
+  }
+  ).then(response => response.json())
+    .then(function(Department){
+         $.each(Department.records, function(i,Department){
+             DepartmentidArray.push(Department.id);
+         })
+         
     fetch('https://api.airtable.com/v0/appRqjrTfb3fuBuIc/Student',{
     headers:{"Authorization": "Bearer keyX6caWycl8lSrpB"}
   }
@@ -70,8 +93,14 @@
            var plus = "<thead><tr><th></th><th>課程名稱</i></th><th>授課老師</th><th>發布者</i></th><th>發布時間</th><th>評論</th></tr></thead>";
            var num = 0;
          $.each(Comment.records, function(i, Comment) {
-             Commentpos = i;
-            index = CourseidArray.indexOf(Comment.fields.Course_ID[0]);
+             Commentpos = i; 
+            index = CourseidArray.indexOf(Comment.fields.Course_ID[0]); //index為course的索引
+             Suggestion_rate = Comment.fields.Suggestion_rate;
+             Lesson_level = Comment.fields.Lesson_level;
+             Comments = Comment.fields.Comments;
+             console.log(Comments);
+               CourseYear = Course.records[index].fields.Year;
+                section = Course.records[index].fields.section;
                 Coursename = Course.records[index].fields.Course_name;
                  Courseid = Course.records[index].id;
                  CourseArray = Course.records[index].fields;
@@ -81,10 +110,14 @@
                  studentid = Comment.fields.Student_ID[0];
                stu_in = StudentidArray.indexOf(studentid);
                studentname = Student.records[stu_in].fields.Student_name;
+             studentYear = Student.records[stu_in].fields.grade;
+             dep_in = DepartmentidArray.indexOf(Student.records[stu_in].fields.Department_ID[0])
+             studentdepartment =Department.records[dep_in].fields.Department_name;
              Time = Comment.fields.modify_time;
                 Timea = Time.split("T");
                 Time = Timea[0];
-             plusArray.push({Coursename:Coursename,teachername:teachername,studentname:studentname,Time:Time});
+             plusArray.push({Coursename:Coursename,teachername:teachername,studentname:studentname,Time:Time,
+                Suggestion_rate:Suggestion_rate,Lesson_level:Lesson_level,CourseYear:CourseYear,section:section,studentYear:studentYear,studentdepartment:studentdepartment,Comments:Comments});
              plusArray = plusArray.sort(function(a,b){
                  return a.Time<b.Time ? 1:-1;
              })
@@ -93,7 +126,7 @@
            console.log(plusArray);
     $.each(plusArray,function(i,item){
             num = i+1;
-            plus_test =plus_test+"<tr><td>" + num + "</td><td>" +item.Coursename+"</td><td>"+ item.teachername+"</td><td>" + item.studentname+"</td><td>"+item.Time+"</td><td>" +"  <a href='commet_view.html' class='view' title='view' data-toggle='tooltip' onclick='window.location=commet_view.html'><i class='material-icons'>&#xE417;</i></a></td></tr>";
+            plus_test =plus_test+"<tr><td>" + num + "</td><td>" +item.Coursename+"</td><td>"+ item.teachername+"</td><td>" + item.studentname+"</td><td>"+item.Time+"</td><td>" +"  <a href='commet_view.php?CourseYear="+item.CourseYear+"&section="+item.section+"&Coursename="+item.Coursename+"&teachername="+item.teachername+"&studentdepartment="+item.studentdepartment+"&studentYear="+item.studentYear+"&studentname="+item.studentname+"&Suggestion_rate="+item.Suggestion_rate+"&Lesson_level="+item.Lesson_level+"&Comments="+item.Comments+"' class='view' title='view' data-toggle='tooltip'><i class='material-icons'>&#xE417;</i></a></td></tr>";
              x=document.getElementById("demo") // 找到元素
             x.innerHTML= plus_test  // 改变内容
                
@@ -103,21 +136,8 @@
        })
         })
         })
-     })
+     })})
 </script>
-
-
-
-</head>
-<body>
-<?php
-    include('session_start.php');
-     ?>
-  <!-- 上方導覽列 -->
-    <?php
-    include('navbar.php');
-     ?>
-
 
     <script type="text/javascript">
   $(document).ready(function(){

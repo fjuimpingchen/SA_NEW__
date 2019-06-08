@@ -43,6 +43,79 @@
   });
   </script>
   </head>
+    <script>
+        var plus_test= " <thead>                    <tr><th></th><th>課程名稱</th>               <th>授課老師</th>               <th>學年</th>               <th>學期</th><th>評論</th>   </tr>       </thead>";
+          var StudentidArray = [];
+          var TeacheridArray = [];
+          var CourseidArray = [];
+          var CommentidArray = [];
+    fetch('https://api.airtable.com/v0/appRqjrTfb3fuBuIc/Student',{
+    headers:{"Authorization": "Bearer keyX6caWycl8lSrpB"}
+  }
+  ).then(response => response.json())
+    .then(function(Student){
+        $.each(Student.records,function(i,Student){
+            StudentidArray.push(Student.id);
+        })
+     fetch('https://api.airtable.com/v0/appRqjrTfb3fuBuIc/Teacher',{
+    headers:{"Authorization": "Bearer keyX6caWycl8lSrpB"}
+  }
+  ).then(response => response.json())
+     .then(function(Teacher){
+         $.each(Teacher.records,function(i,Teacher){
+             TeacheridArray.push(Teacher.id);
+         })
+        fetch('https://api.airtable.com/v0/appRqjrTfb3fuBuIc/Course',{
+    headers:{"Authorization": "Bearer keyX6caWycl8lSrpB"}
+  }
+  )
+  .then(response => response.json())
+  .then(function(Course){
+            $.each(Course.records,function(i,Course){
+                CourseidArray.push(Course.id);
+            })
+       fetch('https://api.airtable.com/v0/appRqjrTfb3fuBuIc/Comment',{
+    headers:{"Authorization": "Bearer keyX6caWycl8lSrpB"}
+  }
+  )
+  .then(response => response.json())
+  .then(function(Comment){
+           $.each(Comment.records,function(i,Comment1){
+                CommentidArray.push(Comment1.id);
+            })
+           console.log(CommentidArray);
+
+           $.each(Student.records,function(i,item){
+               if(item.fields.Student_ID == "<? echo $_SESSION['userid']?>"){
+                   $.each(item.fields.Comment ,function(i,item1){
+                       num = i+1;
+                       Comment_index = CommentidArray.indexOf(item1);//找到comment表中的位置
+                       Course_index =CourseidArray.indexOf(Comment.records[Comment_index].fields.Course_ID[0]);//找到course中的位置
+                       Coursename = Course.records[Course_index].fields.Course_name;
+                       Year = Course.records[Course_index].fields.Year;
+                       section = Course.records[Course_index].fields.section;
+                       teacher_index = TeacheridArray.indexOf(Course.records[Course_index].fields.Teacher_ID[0])
+                       teachername = Teacher.records[teacher_index].fields.Teacher_name;
+                       console.log(Coursename,teachername,Year,section);
+                       plus_test = plus_test+ "<tr><td>"+num+"</td><td>"+Coursename+"</td><td>"+teachername+"</td><td>"+Year+"</td><td>第"+section+"學期</td><td>"+
+                       "<a href=# class=view title=view data-toggle=tooltip onclick=window.location='commet.php'><i class=material-icons>&#xE417;</i></a>"+
+                       "<a href=# class=edit title=Edit data-toggle=tooltip onclick=window.location='commet.php'><i class=material-icons>&#xE254;</i></a>"+
+                        "<a href=# class=delete title=Delete data-toggle=tooltip onclick=window.location='list_delete.php'><i class=material-icons>&#xE872;</i></a></td></tr>"
+               
+                       
+                       
+                   })
+               }
+               
+           })
+            
+            x=document.getElementById("demo"); // 找到元素
+            x.innerHTML= plus_test ; // 改变内容
+       })
+        })
+        })
+     })
+</script>
 
 
 
@@ -62,16 +135,16 @@
                       </div> -->
                   </div>
               </div>
-              <table class="table table-striped table-hover table-bordered" style="margin-top:30px">
+              <table class="table table-striped table-hover table-bordered" style="margin-top:30px" id=demo>
                   <thead>
                       <tr>
                           <th></th>
-                          <th>課程名稱</i></th>
+                          <th>課程名稱</th>
                           <th>授課老師</th>
-                          <th>學年</i></th>
+                          <th>學年</th>
                           <th>學期</th>
                           <th>評論</th>
-                          <!-- <th>Country <i class="fa fa-sort"></i></th> -->
+
                       </tr>
                   </thead>
                   <tbody>
@@ -131,7 +204,7 @@
 
 
 
-
-
-</body>
 </html>
+
+
+

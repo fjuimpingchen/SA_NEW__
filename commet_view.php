@@ -64,13 +64,13 @@
     <img src="183748.svg" width="100" height="100" style="margin-top:0px"><br>
   <div style="position:relative;left:120px;top:-90px">
     <p style="font-size:16px ">
-      &nbsp;&nbsp;&nbsp;&nbsp;107學年度&nbsp;&nbsp;&nbsp;&nbsp;第2學期<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<? echo $_GET['CourseYear'];?>學年度&nbsp;&nbsp;&nbsp;&nbsp;第<? echo $_GET['section'];?>學期<br>
     </p>
     <p style="font-size:16px ">
-      &nbsp;&nbsp;&nbsp;&nbsp;課程名稱：系統分析與設計<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;課程名稱：<? echo $_GET['Coursename'];?><br>
     </p>
     <p style="font-size:16px ">
-      &nbsp;&nbsp;&nbsp;&nbsp;授課教師：吳濟聰
+      &nbsp;&nbsp;&nbsp;&nbsp;授課教師：<? echo $_GET['teachername'];?>
     </p>
   </div>
 </div>
@@ -78,9 +78,8 @@
     <div class="form-check" style="margin-top:-80px;font-size:16px;">
       <p class="form-check-p" style="margin-top:30px">
         <!-- <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" checked=""> 公開&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
-        <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" checked=""> 公開&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <img src="666201.png" width="30" height="30">
-        <label>系級：資訊管理學系 2年級&nbsp;&nbsp;&nbsp;姓名：王小美</label>
+        <label>系級：<? echo $_GET['studentdepartment'],$_GET['studentYear']?>年級&nbsp;&nbsp;&nbsp;姓名：<? echo $_GET['studentname']?></label>
       </p>
     </div>
 
@@ -89,29 +88,24 @@
       <p style="font-size:16px ">課程推薦度：</p>
       <div class="page__group">
         <div class="rating">
-          <input type="radio" name="rating-star" class="rating__control" id="rc1_2">
-          <input type="radio" name="rating-star" class="rating__control" id="rc2_2">
-          <input type="radio" name="rating-star" class="rating__control" id="rc3_2" checked>
-          <input type="radio" name="rating-star" class="rating__control" id="rc4_2">
-          <input type="radio" name="rating-star" class="rating__control" id="rc5_2">
-          <label for="rc1_2" class="rating__item">
-            <svg class="rating__star">
-              <use xlink:href="#star"></use>
+
+          <input type="radio" name="rating-star" class="rating__control" id="rc">
+          <input type="radio" name="rating-star" class="rating__control" id="rc" >
+            <input type="radio" name="rating-star" class="rating__control" id="rc" >
+            <input type="radio" name="rating-star" class="rating__control" id="rc" >
+            <input type="radio" name="rating-star" class="rating__control" id="rc" checked >
+            
+            <?
+    for($i=1;$i<=$_GET['Lesson_level'];$i++){
+        echo "<label for=rc1_2 class=rating__item>
+            <svg class=rating__star>
+              <use xlink:href=#star></use>
             </svg>
-            <span class="rating__label">1</span>
-          </label>
-          <label for="rc2_2" class="rating__item">
-            <svg class="rating__star">
-              <use xlink:href="#star"></use>
-            </svg>
-            <span class="rating__label">2</span>
-          </label>
-          <label for="rc3_2" class="rating__item">
-            <svg class="rating__star">
-              <use xlink:href="#star"></use>
-            </svg>
-            <span class="rating__label">3</span>
-          </label>
+            <span class=rating__label>1</span>
+          </label>";
+    }
+            ?>
+         
         </div>
 
       </div>
@@ -125,32 +119,17 @@
         <input type="radio" name="rating-star2" class="rating__control" id="rc6">
         <input type="radio" name="rating-star2" class="rating__control" id="rc7">
         <input type="radio" name="rating-star2" class="rating__control" id="rc8">
-        <input type="radio" name="rating-star2" class="rating__control" id="rc9" checked>
-        <input type="radio" name="rating-star2" class="rating__control" id="rc10">
-        <label for="rc6" class="rating__item">
-          <svg class="rating__star">
-            <use xlink:href="#star"></use>
-          </svg>
-          <span class="rating__label">1</span>
-        </label>
-        <label for="rc7" class="rating__item">
-          <svg class="rating__star">
-            <use xlink:href="#star"></use>
-          </svg>
-          <span class="rating__label">2</span>
-        </label>
-        <label for="rc8" class="rating__item">
-          <svg class="rating__star">
-            <use xlink:href="#star"></use>
-          </svg>
-          <span class="rating__label">3</span>
-        </label>
-        <label for="rc9" class="rating__item">
-          <svg class="rating__star">
-            <use xlink:href="#star"></use>
-          </svg>
-          <span class="rating__label">4</span>
-        </label>
+        <input type="radio" name="rating-star2" class="rating__control" id="rc9" >
+        <input type="radio" name="rating-star2" class="rating__control" id="rc10" checked>
+       <? for($i=1;$i<=$_GET['Suggestion_rate'];$i++){
+        echo "<label for=rc1_2 class=rating__item>
+            <svg class=rating__star>
+              <use xlink:href=#star></use>
+            </svg>
+            <span class=rating__label>1</span>
+          </label>";
+    }
+            ?>
       </div>
 
     </div>
