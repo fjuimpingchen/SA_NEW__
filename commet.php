@@ -235,7 +235,7 @@ fetch(a,{
 }})
 })
     alert("編輯成功");
-history.go(-1);}else{
+window.location.assign("http://127.0.0.1/SA_NEW__/list_edit_delete.php")}else{
         alert("評論不得少於10字！");
     }
     }</script>
