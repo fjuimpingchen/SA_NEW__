@@ -84,27 +84,23 @@ session_start();
                 })
                 .then(response => response.json())
                 .then(function(Student) {
+                var login = "NO"
                     console.log(Student);
                     var len = Student.records.length;
                     $.each(Student.records, function(i, item) {
 
                         if (item.fields.Student_ID == email_address && item.fields.Password == password) {
+                            login = "YES";
                             // alert ("Login successfully");
                             id = email_address;
                             var name = item.fields.Student_name;
                             //window.location = "search_new.php"; // Redirecting to other page. 
                             location.href = "search_new.php?id=" + id + "&name=" + name;
-                        }
-                        //            else if(item.fields.Student_ID == email_address && item.fields.Password !== password){
-                        //                alert ("password Invalid");
-                        // window.location = "logintest.php";
-                        // }
-                        //         else if (i == len - 1) {
-                        //             //this is the last one
-                        //                alert ("account Invalid");
-                        //              window.location = "logintest.php";
-                        //            }
-                    } alert("請確認帳號密碼是否正確");)
+                            
+                        } 
+                    })
+            if(login == "NO"){
+                alert("請確認帳號密碼是否正確");}
                 });
         });
     };
