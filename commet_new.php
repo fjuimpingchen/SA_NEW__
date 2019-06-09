@@ -34,7 +34,9 @@
 
 </head>
 <body>
-
+  <?php
+  include('session_start.php');
+   ?>
   <!-- 上方導覽列 -->
     <?php
     include('navbar.php');
@@ -47,39 +49,13 @@
   });
   </script>
   </head>
-<script>
 
-  $(document).ready(function() {
-
-      var id;
-      fetch('https://api.airtable.com/v0/appRqjrTfb3fuBuIc/Department', {
-              headers: {
-                  "Authorization": "Bearer keyX6caWycl8lSrpB"
-              }
-          })
-          .then(response => response.json())
-          .then(function(Department) {
-              console.log(Department);
-              var len = Student.records.length;
-              $.each(Department.records, function(i, item) {
-
-                  if (item.fields.Student == <?php $_SESSION['id'] ?>) {
-                      // alert ("Login successfully");
-                      
-                  }
-
-              })
-          });
-  });
-};
-
-  </script>
 
 
 <!-- 評論表格 -->
 <div style="margin-top:100px;margin-right:200px;margin-bottom:100px;margin-left:200px;">
 
-<form>
+
 <fieldset>
 <h3 style="text-align:center;">撰寫評論</h3>
 
@@ -100,14 +76,44 @@
 </div>
 
     <div class="form-check" style="margin-top:-80px;font-size:16px;">
-      <p class="form-check-p" style="margin-top:30px">
-        <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" checked=""> 公開&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" checked=""> 非公開&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <p class="form-check-p" style="margin-top:30px" id="demo">
+        <input type="radio" class="form-check-input" name="optionsRadios"  value="yes" checked=""> 公開&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" class="form-check-input" name="optionsRadios"  value="no" checked=""> 非公開&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <img src="666201.png" width="30" height="30">
-        <label>系級：資訊管理學系 2年級&nbsp;&nbsp;&nbsp;姓名：<?php echo $_SESSION['username']?></label>
+        <label >系級： 2年級&nbsp;&nbsp;&nbsp;姓名：<?php echo $_SESSION['username']?></label>
       </p>
     </div>
+    <script>
 
+      $(document).ready(function() {
+
+          var id;
+          var department;
+          fetch('https://api.airtable.com/v0/appRqjrTfb3fuBuIc/Department', {
+                  headers: {
+                      "Authorization": "Bearer keyX6caWycl8lSrpB"
+                  }
+              })
+              .then(response => response.json())
+              .then(function(Department) {
+                  console.log(Department);
+
+                  $.each(Department.records, function(i, item) {
+
+                      if (item.fields.Student == <?php echo $_SESSION['id'] ?>) {
+                          // alert ("Login successfully");
+                          department =item.fields.Department_name;
+
+                      }
+
+                  })
+                  x=document.getElementById("demo");
+                  x=innerHTML=Department;
+              });
+      });
+    };
+
+      </script>
 <!-- 星級評論（推薦度） -->
     <div class="form-group" style="margin-top:20px">
       <p style="font-size:16px ">課程推薦度：</p>
@@ -115,11 +121,11 @@
   <div class="page__demo">
     <div class="page__group">
       <div class="rating">
-        <input type="radio" name="rating-star" class="rating__control" id="rc1_2">
-        <input type="radio" name="rating-star" class="rating__control" id="rc2_2">
-        <input type="radio" name="rating-star" class="rating__control" id="rc3_2">
-        <input type="radio" name="rating-star" class="rating__control" id="rc4_2">
-        <input type="radio" name="rating-star" class="rating__control" id="rc5_2">
+        <input type="radio" name="rating-star" class="rating__control" id="rc1_2" value="1">
+        <input type="radio" name="rating-star" class="rating__control" id="rc2_2" value="2">
+        <input type="radio" name="rating-star" class="rating__control" id="rc3_2" value="3">
+        <input type="radio" name="rating-star" class="rating__control" id="rc4_2" value="4">
+        <input type="radio" name="rating-star" class="rating__control" id="rc5_2" value="5">
         <label for="rc1_2" class="rating__item">
           <svg class="rating__star">
             <use xlink:href="#star"></use>
@@ -166,11 +172,11 @@
     <div class="page__demo">
       <div class="page__group">
         <div class="rating">
-          <input type="radio" name="rating-star" class="rating__control" id="rc1">
-          <input type="radio" name="rating-star" class="rating__control" id="rc2">
-          <input type="radio" name="rating-star" class="rating__control" id="rc3">
-          <input type="radio" name="rating-star" class="rating__control" id="rc4">
-          <input type="radio" name="rating-star" class="rating__control" id="rc5">
+          <input type="radio" name="rating-star1" class="rating__control" id="rc1" value="1">
+          <input type="radio" name="rating-star1" class="rating__control" id="rc2" value="2">
+          <input type="radio" name="rating-star1" class="rating__control" id="rc3" value="3">
+          <input type="radio" name="rating-star1" class="rating__control" id="rc4" value="4">
+          <input type="radio" name="rating-star1" class="rating__control" id="rc5" value="5">
           <label for="rc1" class="rating__item">
             <svg class="rating__star">
               <use xlink:href="#star"></use>
@@ -218,11 +224,149 @@
 
 
   <input type="button" value="發布" class="button" style="position:relative;
-  left: 960px;top: 10px" onclick="window.location='list_edit_delete.php'">
+  left: 960px;top: 10px" onclick="a()">
 
   </fieldset>
-</form>
 
+<script>
+  var teachername= document.getElementById(teachername).value;
+  var Coursename= document.getElementById(Coursename).value;
+  var studentid=<?php echo $_SESSION['id']?>;
+  var teacherid;
+  var courseid;
+    window.location='list_edit_delete.php'；
+  function a(){
+
+    var exampleTextarea= document.getElementById(exampleTextarea).value;
+    $(document).ready(function() {
+
+        fetch('https://api.airtable.com/v0/appRqjrTfb3fuBuIc/Teacher', {
+                headers: {
+                    "Authorization": "Bearer keyX6caWycl8lSrpB"
+                }
+            })
+            .then(response => response.json())
+            .then(function(Teacher) {
+                console.log(Teacher);
+
+                $.each(Teacher.records, function(i, item) {
+
+                    if (item.fields.Teacher_name == teachername) {
+                        // alert ("Login successfully");
+                        teacherid =item.fields.Teacher_ID;
+
+                    }
+
+                })
+            });
+    });
+    $(document).ready(function() {
+
+        fetch('https://api.airtable.com/v0/appRqjrTfb3fuBuIc/Course', {
+                headers: {
+                    "Authorization": "Bearer keyX6caWycl8lSrpB"
+                }
+            })
+            .then(response => response.json())
+            .then(function(Course) {
+                console.log(Course);
+
+                $.each(Course.records, function(i, item) {
+
+                    if (item.fields.Course_name == Coursename) {
+                        // alert ("Login successfully");
+                        courseid =item.fields.Course_ID;
+
+                    }
+
+                })
+            });
+    });
+    var rating__star= document.getElementById(rating__star).value;
+    var rating__star1= document.getElementById(rating__star1).value;
+    var lessionlevel;
+    var suggest;
+    if(rating__star==5){
+      suggest=5;
+    }
+    else if (rating__star==4) {
+      suggest=4;
+    }
+    else if (rating__star==3) {
+      suggest=3;
+    }
+    else if (rating__star==2) {
+      suggest=2;
+    }
+    else{
+      suggest=1;
+    }
+    if(rating__star1==5){
+      lessionlevel=5;
+    }
+    else if (rating__star1==4) {
+      lessionlevel=4;
+    }
+    else if (rating__star1==3) {
+      lessionlevel=3;
+    }
+    else if (rating__star1==2) {
+      lessionlevel=2;
+    }
+    else{
+      lessionlevel=1;
+    }
+    var private1= document.getElementById(optionsRadios).value;
+    var comment ;
+    $(document).ready(function() {
+
+        fetch('https://api.airtable.com/v0/appRqjrTfb3fuBuIc/Comment', {
+                headers: {
+                    "Authorization": "Bearer keyX6caWycl8lSrpB"
+                }
+            })
+            .then(response => response.json())
+            .then(function(Comment) {
+                console.log(Comment);
+
+                $.each(Comment.records, function(i, item) {
+                  var len = Comment.records.length;
+                    comment=len;
+
+                })
+            });
+    });
+
+    var timeInMs = Date.now();
+
+    var a ='https://api.airtable.com/v0/appRqjrTfb3fuBuIc/Comment'
+    console.log(a);
+fetch(a,{
+  headers:{"Authorization": "Bearer keyX6caWycl8lSrpB","Content-Type": "application/json; charset=utf-8" },
+ // method:'POST', //先不要再新增了
+    body: JSON.stringify({
+        'fields':{
+  "Comment_ID":comment,
+  "Course_ID": courseid,
+  "Teacher_ID": teacherid,
+  "Student_ID": studentid,
+  "Suggestion_rate":suggest,
+  "Lesson_level":lessionlevel,
+  "Comments":exampleTextarea,
+  "private":private1,
+  "modify_time":timeInMs,
+ }
+  })
+
+
+        }
+     )
+
+  };
+
+
+
+</script>
 
 
 

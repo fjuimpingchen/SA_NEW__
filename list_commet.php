@@ -94,7 +94,7 @@
                        teacher_index = TeacheridArray.indexOf(Course.records[Course_index].fields.Teacher_ID[0])
                        teachername = Teacher.records[teacher_index].fields.Teacher_name;
                        console.log(Coursename,teachername,Year,section);
-                       plus_test = plus_test+" <tr><td>"+num+"</td><td>"+Coursename+"</td><td>"+teachername+"</td><td>"+Year+"</td><td>第"+section+"學期</td><td><a href='commet_new.php?Year="+item.Year+"&section="+item.section+"&Coursename="+item.Coursename+"&teachername="+item.teachername+"' class='view' title='write' data-toggle='tooltip' onclick=window.location='commet_new.php'><i class='fas fa-comments'></i></a></td></tr>"
+                       plus_test = plus_test+" <tr><td>"+num+"</td><td>"+Coursename+"</td><td>"+teachername+"</td><td>"+Year+"</td><td>第"+section+"學期</td><td><a href='commet_new.php?Year="+Year+"&section="+section+"&Coursename="+Coursename+"&teachername="+teachername+"' class='view' title='write' data-toggle='tooltip' onclick=window.location='commet_new.php'><i class='fas fa-comments'></i></a></td></tr>"
 
 
 
