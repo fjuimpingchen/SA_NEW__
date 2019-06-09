@@ -94,7 +94,7 @@
 
               				</thead>
               				<tbody>
-                  				<tr id='addr0' data-id="0">
+                  				<tr id='showBlock1' data-id="0">
               						<td data-name="name">
               						    <p>1</p>
               						</td>
@@ -123,11 +123,16 @@
                               <p>30</p>
                           </td>
                                       <td data-name="del">
-                                          <button name="del0" class='btn btn-danger glyphicon glyphicon-remove row-remove'><span aria-hidden="true"></span></button>
+                                          <button id="btn1" class='btn btn-danger glyphicon glyphicon-remove row-remove'><span aria-hidden="true"></span></button>
                                       </td>
+                                      <script>
+                                      $("#btn1").click(function () {
+                                      $("#showBlock1").remove();
+                                      });
+                                      </script>
               					</tr>
 
-                        <tr id='addr0' data-id="0">
+                        <tr id='showBlock2' data-id="0">
                         <td data-name="name">
                             <p>2</p>
                         </td>
@@ -156,11 +161,16 @@
                             <p>20</p>
                         </td>
                                     <td data-name="del">
-                                        <button name="del0" class='btn btn-danger glyphicon glyphicon-remove row-remove'><span aria-hidden="true"></span></button>
+                                        <button id="btn2" class='btn btn-danger glyphicon glyphicon-remove row-remove'><span aria-hidden="true"></span></button>
                                     </td>
+                                    <script>
+                                    $("#btn2").click(function () {
+                                    $("#showBlock2").remove();
+                                    });
+                                    </script>
                       </tr>
 
-                      <tr id='addr0' data-id="0">
+                      <tr id='showBlock3' data-id="0">
                       <td data-name="name">
                           <p>3</p>
                       </td>
@@ -189,11 +199,16 @@
                           <p>90</p>
                       </td>
                                   <td data-name="del">
-                                      <button name="del0" class='btn btn-danger glyphicon glyphicon-remove row-remove'><span aria-hidden="true"></span></button>
+                                      <button id="btn3" class='btn btn-danger glyphicon glyphicon-remove row-remove'><span aria-hidden="true"></span></button>
                                   </td>
+                                  <script>
+                                  $("#btn3").click(function () {
+                                  $("#showBlock3").remove();
+                                  });
+                                  </script>
                     </tr>
 
-                    <tr id='addr0' data-id="0">
+                    <tr id='showBlock4' data-id="0">
                     <td data-name="name">
                         <p>4</p>
                     </td>
@@ -222,8 +237,13 @@
                         <p>95</p>
                     </td>
                                 <td data-name="del">
-                                    <button name="del0" class='btn btn-danger glyphicon glyphicon-remove row-remove'><span aria-hidden="true"></span></button>
+                                    <button id="btn4" class='btn btn-danger glyphicon glyphicon-remove row-remove'><span aria-hidden="true"></span></button>
                                 </td>
+                                <script>
+                                $("#btn4").click(function () {
+                                $("#showBlock4").remove();
+                                });
+                                </script>
                   </tr>
 
 
@@ -231,7 +251,7 @@
               			</table>
               		</div>
               	</div>
-              	<a id="add_row" class="btn btn-primary float-right">儲存清單</a>
+              	<a class="btn btn-primary float-right" href="list_order.php">儲存清單</a>
               </div>
 
 
