@@ -61,7 +61,7 @@
 
 <form name=form_name id=form_name>
 <fieldset>
-<h3 style="text-align:center;">撰寫評論</h3>
+<h3 style="text-align:center;">編輯評論</h3>
 
 
 <div style="margin-top:30px">
@@ -235,7 +235,7 @@ fetch(a,{
 }})
 })
     alert("編輯成功");
-window.location.assign("http://127.0.0.1/SA_NEW__/list_edit_delete.php")}else{
+history.go(-1);}else{
         alert("評論不得少於10字！");
     }
     }</script>
