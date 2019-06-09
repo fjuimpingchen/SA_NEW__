@@ -83,37 +83,7 @@
         <label >系級： 2年級&nbsp;&nbsp;&nbsp;姓名：<?php echo $_SESSION['username']?></label>
       </p>
     </div>
-    <script>
 
-      $(document).ready(function() {
-
-          var id;
-          var department;
-          fetch('https://api.airtable.com/v0/appRqjrTfb3fuBuIc/Department', {
-                  headers: {
-                      "Authorization": "Bearer keyX6caWycl8lSrpB"
-                  }
-              })
-              .then(response => response.json())
-              .then(function(Department) {
-                  console.log(Department);
-
-                  $.each(Department.records, function(i, item) {
-
-                      if (item.fields.Student == <?php echo $_SESSION['id'] ?>) {
-                          // alert ("Login successfully");
-                          department =item.fields.Department_name;
-
-                      }
-
-                  })
-                  x=document.getElementById("demo");
-                  x=innerHTML=Department;
-              });
-      });
-    };
-
-      </script>
 <!-- 星級評論（推薦度） -->
     <div class="form-group" style="margin-top:20px">
       <p style="font-size:16px ">課程推薦度：</p>
@@ -218,10 +188,8 @@
 
   <div style="margin-top:18px;">
     <p for="exampleTextarea" style="font-size:16px ">評論內容（文字不得少於10字）：</p>
-    <textarea class="form-control" id="exampleTextarea" rows="5"></textarea>
+    <textarea class="form-control" id="textarea" name="textarea"rows="5"></textarea>
   </div>
-
-
 
   <input type="button" value="發布" class="button" style="position:relative;
   left: 960px;top: 10px" onclick="a()">
@@ -229,15 +197,22 @@
   </fieldset>
 
 <script>
-  var teachername= document.getElementById(teachername).value;
-  var Coursename= document.getElementById(Coursename).value;
-  var studentid=<?php echo $_SESSION['id']?>;
+
+</script>
+<script>
+//location.href = "search_new.php";
+var teachername= "<?php echo $_GET['teachername'];?>";
+  var Coursename= "<?php echo $_GET['Coursename'];?>";
+  var studentid="<?php echo $_SESSION['userid'];?>";
+
   var teacherid;
   var courseid;
-    window.location='list_edit_delete.php'；
-  function a(){
 
-    var exampleTextarea= document.getElementById(exampleTextarea).value;
+  function a(){
+//location.href = "search_new.php";
+
+    var textarea= document.getElementById("textarea").value;
+
     $(document).ready(function() {
 
         fetch('https://api.airtable.com/v0/appRqjrTfb3fuBuIc/Teacher', {
@@ -252,40 +227,44 @@
                 $.each(Teacher.records, function(i, item) {
 
                     if (item.fields.Teacher_name == teachername) {
-                        // alert ("Login successfully");
+                      // alert ("Login successfully");
                         teacherid =item.fields.Teacher_ID;
+                        $(document).ready(function() {
 
+                            fetch('https://api.airtable.com/v0/appRqjrTfb3fuBuIc/Course', {
+                                    headers: {
+                                        "Authorization": "Bearer keyX6caWycl8lSrpB"
+                                    }
+                                })
+                                .then(response => response.json())
+                                .then(function(Course) {
+                                    console.log(Course);
+
+                                    $.each(Course.records, function(i, item) {
+
+                                        if (item.fields.Course_name == Coursename) {
+                                            // alert ("Login successfully");
+                                            courseid =item.fields.Course_ID;
+
+                                        }
+
+                                    })
+                                });
+                        });
                     }
 
                 })
             });
     });
-    $(document).ready(function() {
 
-        fetch('https://api.airtable.com/v0/appRqjrTfb3fuBuIc/Course', {
-                headers: {
-                    "Authorization": "Bearer keyX6caWycl8lSrpB"
-                }
-            })
-            .then(response => response.json())
-            .then(function(Course) {
-                console.log(Course);
-
-                $.each(Course.records, function(i, item) {
-
-                    if (item.fields.Course_name == Coursename) {
-                        // alert ("Login successfully");
-                        courseid =item.fields.Course_ID;
-
-                    }
-
-                })
-            });
-    });
+    var private1= document.getElementById(optionsRadios).value;
+      window.alert(private1);
     var rating__star= document.getElementById(rating__star).value;
     var rating__star1= document.getElementById(rating__star1).value;
+
     var lessionlevel;
     var suggest;
+
     if(rating__star==5){
       suggest=5;
     }
@@ -316,7 +295,8 @@
     else{
       lessionlevel=1;
     }
-    var private1= document.getElementById(optionsRadios).value;
+
+
     var comment ;
     $(document).ready(function() {
 
@@ -354,7 +334,7 @@ fetch(a,{
   "Lesson_level":lessionlevel,
   "Comments":exampleTextarea,
   "private":private1,
-  "modify_time":timeInMs,
+  //"modify_time":timeInMs,
  }
   })
 
