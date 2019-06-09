@@ -234,7 +234,8 @@ fetch(a,{
   "private":private
 }})
 })
-    }else{
+    alert("編輯成功");
+history.go(-1);}else{
         alert("評論不得少於10字！");
     }
     }</script>
