@@ -143,7 +143,7 @@
           <input type=radio name=rating1 class=rating__control id=rc6 checked>
 <? for($i=7;$i<=10;$i++){
         echo "<input type=radio name=rating1 class=rating__control id=rc$i >";
-    
+
 }?>
 
         <label for="rc6" class="rating__item">
@@ -192,9 +192,9 @@
 
 
 
-  <input type="button" value="編輯" class="button" style="position:relative;
+  <input type="button" value="發布" class="button" style="position:relative;
   left: 1160px;top: -95px" onclick="getCountry()">
-    
+
     <script>
     function getCountry(){
             //  讀取radio的值
@@ -208,14 +208,14 @@
                    if(form.rating1[i].checked){
                     var level = form.rating[i].value;
                    }
-        
-        
+
+
         }
 if(comments.length>10){
 var a ='https://api.airtable.com/v0/appRqjrTfb3fuBuIc/Comment'
 fetch(a,{
   headers:{"Authorization": "Bearer keyX6caWycl8lSrpB","Content-Type": "application/json; charset=utf-8" },
- method:'POST', 
+ method:'POST',
     body: JSON.stringify({
     'fields':{
 "Comment_ID":(Math.floor(Math.random()*50)).toString(),
@@ -231,7 +231,7 @@ fetch(a,{
   "private":private
 }
   })})
-    
+
 }else{alert("評論不得少於10字")}
     }
   </script>
