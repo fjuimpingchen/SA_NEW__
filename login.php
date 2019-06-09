@@ -94,6 +94,8 @@ session_start();
                             var name = item.fields.Student_name;
                             //window.location = "search_new.php"; // Redirecting to other page. 
                             location.href = "search_new.php?id=" + id + "&name=" + name;
+                        }else{
+                            alert("請確認帳號密碼是否正確");
                         }
                         //            else if(item.fields.Student_ID == email_address && item.fields.Password !== password){
                         //                alert ("password Invalid");
